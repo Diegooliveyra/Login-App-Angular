@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { FlexModule } from '@angular/flex-layout';
 import { MainModule } from './main/main.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { MainModule } from './main/main.module';
     HttpClientModule,
     MaterialModule,
     FlexModule,
+    AuthModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
