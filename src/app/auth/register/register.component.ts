@@ -1,5 +1,9 @@
+import { throwError } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -25,7 +29,11 @@ export class RegisterComponent implements OnInit {
 
   states = ['SP', 'RJ', 'MG', 'SC', 'GO', 'PR', 'MT'];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
 
@@ -40,5 +48,18 @@ export class RegisterComponent implements OnInit {
     return { matching: false };
   }
 
-  onSubmit() {}
+  onSubmit() {
+    let user: User = {
+      ...this.formRegister.value,
+      password: this.formRegister.get('password1')?.value,
+    };
+    this.authService.register(user).subscribe(
+      () => {
+        this.router.navigate(['auth/login']);
+      },
+      (error) => {
+        throwError(error);
+      }
+    );
+  }
 }
