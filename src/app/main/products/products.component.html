@@ -1,1 +1,18 @@
-<p>products works!</p>
+<section>
+  <h2>People</h2>
+
+  <div *ngIf="(products$ | async)?.length; else noproducts">
+    <ul>
+      <li *ngFor="let p of (products$ | async)">
+        {{p.name}} -
+        {{p.department}} -
+        {{p.price}}
+      </li>
+    </ul>
+  </div>
+
+  <ng-template #noproducts >
+    <p>No found products</p>
+  </ng-template>
+</section>
+

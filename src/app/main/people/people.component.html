@@ -1,1 +1,16 @@
-<p>people works!</p>
+<section>
+  <h2>People</h2>
+
+  <div *ngIf="(people$ | async)?.length; else nopeople">
+    <ul>
+      <li *ngFor="let p of (people$ | async)">
+        {{p.name}} -
+        {{p.email}}
+      </li>
+    </ul>
+  </div>
+
+  <ng-template #nopeople >
+    <p>No found people</p>
+  </ng-template>
+</section>
