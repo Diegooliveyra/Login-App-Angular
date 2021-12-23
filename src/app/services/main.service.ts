@@ -14,7 +14,7 @@ export class MainService {
   constructor(private http: HttpClient) {}
 
   getPeople(): Observable<Person[]> {
-    return this.http.get<Person[]>(`${this.url}/peoples`).pipe(
+    return this.http.get<Person[]>(`${this.url}/people`).pipe(
       catchError((error) => {
         return throwError(error);
       })

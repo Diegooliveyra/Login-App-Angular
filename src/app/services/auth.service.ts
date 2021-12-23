@@ -9,7 +9,7 @@ import { tap } from 'rxjs/operators';
 })
 export class AuthService {
   readonly url: string = 'http://localhost:3000/auth';
-  private subjUser$: Subject<User> = new BehaviorSubject<any>(null);
+  private subjUser$: Subject<any> = new BehaviorSubject<any>(null);
   private subjLoggedIn$: Subject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) {}
@@ -37,5 +37,11 @@ export class AuthService {
 
   getUser(): Observable<User> {
     return this.subjUser$.asObservable();
+  }
+
+  logout(){
+    this.subjLoggedIn$.next(false);
+    this.subjUser$.next(null);
+    localStorage.removeItem('token')
   }
 }
