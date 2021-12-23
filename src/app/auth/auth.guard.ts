@@ -1,3 +1,4 @@
+import { tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { Injectable } from '@angular/core';
 import {
@@ -25,6 +26,13 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.authService.isAuthenticated();
+    return this.authService.isAuthenticated()
+          .pipe(
+            tap((a)=>{
+              if(!a){
+                this.route.navigateByUrl('/auth/login')
+              }
+            })
+          )
   }
 }
